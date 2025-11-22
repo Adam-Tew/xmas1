@@ -1,0 +1,138 @@
+<!-- templates/console.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Console - CoreLine</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background: #0a0a0a;
+            color: #00ff88;
+            margin: 0;
+            padding: 20px;
+        }
+        .console-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        h1 {
+            color: #00ff88;
+            text-shadow: 0 0 10px #00ff88;
+        }
+        .login-box {
+            background: #1a1a1a;
+            border: 2px solid #00ff88;
+            padding: 30px;
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
+            background: #0a0a0a;
+            border: 1px solid #00ff88;
+            color: #00ff88;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background: #00ff88;
+            border: none;
+            color: #0a0a0a;
+            font-weight: bold;
+            font-size: 16px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+        }
+        button:hover {
+            background: #00cc70;
+        }
+        .logs {
+            margin-top: 30px;
+            display: none;
+        }
+        .log-entry {
+            padding: 10px;
+            background: #1a1a1a;
+            border-left: 3px solid #00ff88;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .log-time {
+            color: #888;
+        }
+        .log-level {
+            color: #00ccff;
+            font-weight: bold;
+        }
+        .error {
+            color: #ff4444;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="console-container">
+        <h1>⚡ SYSTEM CONSOLE ACCESS</h1>
+        <div class="login-box">
+            <h3>Enter Console Password:</h3>
+            <input type="password" id="password" placeholder="Password">
+            <button onclick="login()">ACCESS CONSOLE</button>
+            <div id="error" class="error"></div>
+        </div>
+        <div id="logs" class="logs">
+            <h2>System Logs:</h2>
+            <div id="logEntries"></div>
+        </div>
+    </div>
+
+    <script>
+        async function login() {
+            const password = document.getElementById('password').value;
+            const errorDiv = document.getElementById('error');
+            
+            try {
+                const response = await fetch('/atom/operations/oracle/proxy/admin/console', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ password })
+                });
+
+                const data = await response.json();
+
+                if (data.success) {
+                    errorDiv.textContent = '';
+                    document.querySelector('.login-box').style.display = 'none';
+                    const logsDiv = document.getElementById('logs');
+                    logsDiv.style.display = 'block';
+                    
+                    const logEntries = document.getElementById('logEntries');
+                    data.logs.forEach(log => {
+                        const entry = document.createElement('div');
+                        entry.className = 'log-entry';
+                        entry.innerHTML = `<span class="log-time">[${log.timestamp}]</span> <span class="log-level">${log.level}</span>: ${log.message}`;
+                        logEntries.appendChild(entry);
+                    });
+                } else {
+                    errorDiv.textContent = '❌ Access Denied: Invalid password';
+                }
+            } catch (error) {
+                errorDiv.textContent = '❌ Connection error';
+            }
+        }
+
+        document.getElementById('password').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>

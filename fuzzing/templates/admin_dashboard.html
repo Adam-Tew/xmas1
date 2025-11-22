@@ -1,0 +1,213 @@
+<!-- templates/admin_dashboard.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - CoreLine</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #1a1a1a;
+            color: #e0e0e0;
+        }
+        .header {
+            background: #2d2d2d;
+            padding: 15px 30px;
+            border-bottom: 2px solid #3a3a3a;
+        }
+        .header h1 {
+            color: #00ff88;
+            font-size: 24px;
+        }
+        .main-content {
+            display: flex;
+            height: calc(100vh - 80px);
+        }
+        .emails-section {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+        .email-card {
+            background: #2d2d2d;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #00ff88;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .email-card:hover {
+            background: #353535;
+            transform: translateX(5px);
+        }
+        .email-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .email-from {
+            color: #00ff88;
+            font-weight: bold;
+        }
+        .email-date {
+            color: #888;
+            font-size: 12px;
+        }
+        .email-subject {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+        .email-preview {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .chat-section {
+            width: 350px;
+            background: #252525;
+            border-left: 1px solid #3a3a3a;
+            display: flex;
+            flex-direction: column;
+        }
+        .chat-header {
+            padding: 15px;
+            background: #2d2d2d;
+            border-bottom: 1px solid #3a3a3a;
+        }
+        .chat-header h3 {
+            color: #00ff88;
+        }
+        .chat-messages {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+        }
+        .chat-message {
+            margin-bottom: 15px;
+            padding: 10px;
+            background: #2d2d2d;
+            border-radius: 8px;
+        }
+        .chat-author {
+            color: #00ff88;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 12px;
+        }
+        .chat-text {
+            color: #e0e0e0;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+        .chat-time {
+            color: #666;
+            font-size: 11px;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>⚡ CoreLine Admin Dashboard</h1>
+    </div>
+    <div class="main-content">
+        <div class="emails-section">
+            <h2 style="margin-bottom: 20px; color: #00ff88;">📧 Recent Emails</h2>
+            
+            <div class="email-card">
+                <div class="email-header">
+                    <span class="email-from">james.peterson@coreline.nu</span>
+                    <span class="email-date">Nov 10, 2025</span>
+                </div>
+                <div class="email-subject">RE: Weekend Plans</div>
+                <div class="email-preview">
+                    Thanks for the invitation! I'll bring the food. Looking forward to it...
+                </div>
+            </div>
+
+            <div class="email-card">
+                <div class="email-header">
+                    <span class="email-from">sarah.chen@coreline.nu</span>
+                    <span class="email-date">Nov 12, 2025</span>
+                </div>
+                <div class="email-subject">Server Migration Schedule</div>
+                <div class="email-preview">
+                    The migration is scheduled for Nov 15. All services will be moved to the new infrastructure. Please ensure all credentials are updated accordingly...
+                </div>
+            </div>
+
+            <div class="email-card">
+                <div class="email-header">
+                    <span class="email-from">james.peterson@coreline.nu</span>
+                    <span class="email-date">Nov 13, 2025</span>
+                </div>
+                <div class="email-subject">Team Lunch</div>
+                <div class="email-preview">
+                    Great meeting everyone! Same time next month? Let me know your preferences...
+                </div>
+            </div>
+
+            <div class="email-card">
+                <div class="email-header">
+                    <span class="email-from">it-security@coreline.nu</span>
+                    <span class="email-date">Nov 14, 2025</span>
+                </div>
+                <div class="email-subject">Security Reminder</div>
+                <div class="email-preview">
+                    Reminder: Never share passwords in plaintext. Always use encrypted communication for sensitive credentials. Our standard encryption protocol is SHA1 HMAC...
+                </div>
+            </div>
+        </div>
+
+        <div class="chat-section">
+            <div class="chat-header">
+                <h3>#general-admin</h3>
+            </div>
+            <div class="chat-messages">
+                <div class="chat-message">
+                    <div class="chat-author">@sarah.chen</div>
+                    <div class="chat-text">Hey @james.peterson, I need access to the console to check the migration logs. Can you share the password?</div>
+                    <div class="chat-time">Nov 15, 10:23 AM</div>
+                </div>
+
+                <div class="chat-message">
+                    <div class="chat-author">@james.peterson</div>
+                    <div class="chat-text">I can't send it in plaintext here. You know company policy...</div>
+                    <div class="chat-time">Nov 15, 10:25 AM</div>
+                </div>
+
+                <div class="chat-message">
+                    <div class="chat-author">@sarah.chen</div>
+                    <div class="chat-text">Right, of course. Can you at least give me a hint?</div>
+                    <div class="chat-time">Nov 15, 10:26 AM</div>
+                </div>
+
+                <div class="chat-message">
+                    <div class="chat-author">@james.peterson</div>
+                    <div class="chat-text">The console password hash is: 9a1e795ae0c1d04fe935a9a39d88276ddfd3e2e3</div>
+                    <div class="chat-time">Nov 15, 10:28 AM</div>
+                </div>
+
+                <div class="chat-message">
+                    <div class="chat-author">@james.peterson</div>
+                    <div class="chat-text">This password was encrypted with the same key as before, you know...</div>
+                    <div class="chat-time">Nov 15, 10:28 AM</div>
+                </div>
+
+                <div class="chat-message">
+                    <div class="chat-author">@sarah.chen</div>
+                    <div class="chat-text">Got it, thanks.</div>
+                    <div class="chat-time">Nov 15, 10:30 AM</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
