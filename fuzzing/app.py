@@ -41,9 +41,9 @@ def atom_paths(subpath=''):
     # Valid paths in the chain should return 401
     valid_paths = [
         '',  # /atom
-        'operations',
-        'operations/oracle',
-        'operations/oracle/proxy'
+        'openbsd',
+        'openbsd/oracle',
+        'openbsd/oracle/proxy'
     ]
     
     if subpath in valid_paths:
@@ -51,7 +51,7 @@ def atom_paths(subpath=''):
     
     return 'Not Found', 404
 
-@app.route('/atom/operations/oracle/proxy/admin', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
+@app.route('/atom/openbsd/oracle/proxy/admin', methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
 def admin_endpoint():
     # Check for custom header with encoded admin=true
     auth_header = request.headers.get('X-Admin-Auth', '')
@@ -66,7 +66,7 @@ def admin_endpoint():
     response.headers['X-Admin-Auth'] = encode_admin_header('false')
     return response
 
-@app.route('/atom/operations/oracle/proxy/admin/console', methods=['GET', 'POST'])
+@app.route('/atom/openbsd/oracle/proxy/admin/console', methods=['GET', 'POST'])
 def console():
     if request.method == 'POST':
         password = request.json.get('password', '')
